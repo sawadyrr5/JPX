@@ -27,8 +27,6 @@ def institutional(code, kikan_code=None):
         '//*[@id="sort"]/tbody/tr/td[6]',
         '//*[@id="sort"]/tbody/tr/td[7]'
     ]
-    xpath_column = '//*[@id="sort"]/thead/tr/th'
-
     datas = [root.xpath(xpath) for xpath in xpaths]
 
     ser2 = [pd.Series([d.text for d in data]) for data in datas]
@@ -41,9 +39,9 @@ def institutional(code, kikan_code=None):
     df = pd.DataFrame(data=ser2)
     df = df.transpose()
 
-    columns = root.xpath(xpath_column)
-    df.columns = [col.text for col in columns]
+    columns = ('Date', 'Name', 'Short_pct', 'Short_pct_chg', 'Short_amount', 'Short_amount_chg', 'Note')
+    df.columns = columns
 
-    df['計算日'] = pd.to_datetime(df['計算日'])
+    df['Date'] = pd.to_datetime(df['Date'])
 
     return df

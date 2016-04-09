@@ -34,22 +34,6 @@ def price_range(price):
             return ranges[-1]
 
 
-def new_index(code):
-    return __topix.new_index[code]
-
-
-def float_ratio(code):
-    return __topix.float_ratio[code]
-
-
-def weight(code):
-    return __topix.weight[code]
-
-
-def includes(newindex):
-    return __topix.includes[newindex]
-
-
 class Topix:
     """
     使い方
@@ -86,3 +70,19 @@ class Topix:
     def includes(self, new_index):
         result = [code for code in self.result if self.result[code]['new_index'] == new_index]
         return result
+
+
+def new_index(code):
+    return __topix.new_index[code]
+
+
+def float_ratio(code):
+    return __topix.float_ratio[code]
+
+
+def weight(code):
+    return __topix.weight[code]
+
+
+def includes(new_index):
+    return __topix.includes[new_index]
