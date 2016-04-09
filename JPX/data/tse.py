@@ -4,7 +4,7 @@ import urllib.request
 import re
 
 
-__topix = topix()
+__topix = Topix()
 
 
 def price_range(price):
@@ -34,8 +34,8 @@ def price_range(price):
             return ranges[-1]
 
 
-def newindex(code):
-    return __topix.newindex[code]
+def new_index(code):
+    return __topix.new_index[code]
 
 
 def float_ratio(code):
@@ -50,7 +50,7 @@ def includes(newindex):
     return __topix.includes[newindex]
 
 
-class topix():
+class Topix:
     """
     使い方
 
@@ -69,13 +69,13 @@ class topix():
                 line = line.replace(matchOB.group(), matchOB.group() + ' ')
                 l = line.split(' ')
                 self.result[l[2]] = dict(
-                    newindex=l[3],
+                    new_index=l[3],
                     float_ratio=l[4],
                     weight=l[5]
                 )
 
-    def newindex(self, code):
-        return self.result[code]['newindex']
+    def new_index(self, code):
+        return self.result[code]['new_index']
 
     def float_ratio(self, code):
         return self.result[code]['float_ratio']
@@ -83,6 +83,6 @@ class topix():
     def weight(self, code):
         return self.result[code]['weight']
 
-    def includes(self, newindex):
-        result = [code for code in self.result if self.result[code]['newindex'] == newindex]
+    def includes(self, new_index):
+        result = [code for code in self.result if self.result[code]['new_index'] == new_index]
         return result

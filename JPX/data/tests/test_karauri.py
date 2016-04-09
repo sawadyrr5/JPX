@@ -5,5 +5,5 @@ res =kara.institutional('7312')
 print(res)
 
 # Lansdowne
-res =kara.institutional('7312', 236)
+res =kara.institutional('7312', '236')
 print(res)
