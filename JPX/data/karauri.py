@@ -5,10 +5,17 @@ import pandas as pd
 from JPX.util.convert import str2num
 
 
-def institutional(code):
-    param = dict(code=code)
+def institutional(code, kikan_code=None):
+    param = dict(
+        code=code,
+        kikan_code=''
+    )
 
-    url = 'http://karauri.net/{code}/'.format(**param)
+    if kikan_code:
+        param['kikan_code'] = '?f=' + kikan_code
+
+    url = 'http://karauri.net/{code}/{kikan_code}'.format(**param)
+    print(url)
     html = urllib.request.urlopen(url).read()
     root = lxml.html.fromstring(html)
 
@@ -27,7 +34,6 @@ def institutional(code):
 
     ser2 = [pd.Series([d.text for d in data]) for data in datas]
 
-    # ser2[0] = pd.Series(data=[d.text) for d in datas[0]])
     ser2[2] = pd.Series([str2num(d.text) for d in datas[2]])
     ser2[3] = pd.Series([str2num(d.text) for d in datas[3]])
     ser2[4] = pd.Series([d.text.replace('株', '').replace(',', '') for d in datas[4]])
