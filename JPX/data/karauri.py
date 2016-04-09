@@ -42,6 +42,6 @@ def institutional(code, kikan_code=None):
     columns = ('Date', 'Name', 'Short_pct', 'Short_pct_chg', 'Short_amount', 'Short_amount_chg', 'Note')
     df.columns = columns
 
-    df['Date'] = pd.to_datetime(df['Date'])
+    df.set_index(pd.to_datetime(df['Date']), inplace=True)
 
     return df
