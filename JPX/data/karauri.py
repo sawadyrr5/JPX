@@ -15,7 +15,6 @@ def institutional(code, kikan_code=None):
         param['kikan_code'] = '?f=' + kikan_code
 
     url = 'http://karauri.net/{code}/{kikan_code}'.format(**param)
-    print(url)
     html = urllib.request.urlopen(url).read()
     root = lxml.html.fromstring(html)
 
