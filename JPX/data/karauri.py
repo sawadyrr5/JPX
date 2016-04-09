@@ -43,5 +43,6 @@ def institutional(code, kikan_code=None):
     df.columns = columns
 
     df.set_index(pd.to_datetime(df['Date']), inplace=True)
+    df.drop('Date', axis=1, inplace=True)
 
     return df
