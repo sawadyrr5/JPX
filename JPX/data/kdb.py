@@ -227,7 +227,7 @@ def __set_index(df, symbol, interval):
 def __make_urls(symbol, interval, start, end):
     symbol_type = __get_symbol_type(symbol, interval)
 
-    url_base = 'http://k-db.com/{category}/{symbol}{interval}?{date}download=csv'
+    url_base = 'http://old.k-db.com/{category}/{symbol}{interval}?{date}download=csv'
     url_interval = dict(
         d='',
         a='/a',
