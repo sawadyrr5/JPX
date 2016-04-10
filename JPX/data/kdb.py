@@ -3,7 +3,7 @@ import pandas as pd
 import urllib.request
 from datetime import datetime
 
-__response = urllib.request.urlopen('http://k-db.com/?p=all&download=csv')
+__response = urllib.request.urlopen('http://old.k-db.com/?p=all&download=csv')
 __master = pd.read_csv(__response, encoding='Shift_JIS', skiprows=1)
 __master.set_index('コード', inplace=True)
 
