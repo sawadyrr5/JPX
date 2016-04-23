@@ -29,13 +29,38 @@ kara.institutional(code)
 ```
 
 ## JPX.data.kdb
-k-db.comから時系列データを取得する
+old.k-db.comから時系列データを取得する(旧)
 
 ### 個別株、先物、指数、統計の時系列データを取得する
 
 ```
 import JPX.data.kdb as kdb
 kdb.historical(symbol, interval=None, start=None, end=None)
+```
+
+## JPX.data.kdb_new
+k-db.comから時系列データを取得する(新)
+使用する際はFutures, Indices, Stocks, Statisticsのクラスをインポートしておく
+各クラスに対して以下のプロパティ、メソッドが使用可能
+
+```
+from JPX.data.kdb_new import Futures, Indices, Stocks, Statistics
+```
+
+### プロパティ
+
+```
+.symbols    # コード一覧
+.names      # 名称一覧
+.contracts  # 限月一覧(Futuresのみ)
+```
+
+### 時系列データを取得する
+
+```
+.get_historical_price(symbol, freq, date_from, date_to)
+
+ freq... '1d', '4h', '1h', '30m', '15m', '5m'のいずれか。統計は'1d'のみ
 ```
 
 
