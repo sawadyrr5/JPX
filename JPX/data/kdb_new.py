@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 
 
-class __SymbolType2:
+class __Symbol:
 
     @classmethod
     def _get_root(cls, url):
@@ -56,7 +56,7 @@ class __SymbolType2:
         return df
 
 
-class Futures(__SymbolType2):
+class Futures(__Symbol):
     __category = 'futures'
 
     __col = dict(
@@ -92,7 +92,7 @@ class Futures(__SymbolType2):
         return df
 
 
-class Indices(__SymbolType2):
+class Indices(__Symbol):
     __category = 'indices'
 
     __col = dict(
@@ -126,7 +126,7 @@ class Indices(__SymbolType2):
         return df
 
 
-class Stocks(__SymbolType2):
+class Stocks(__Symbol):
     __category = 'stocks'
 
     __col = dict(
@@ -161,7 +161,7 @@ class Stocks(__SymbolType2):
         return df
 
 
-class Statistics(__SymbolType2):
+class Statistics(__Symbol):
     __category = 'statistics'
 
     __col = dict(
