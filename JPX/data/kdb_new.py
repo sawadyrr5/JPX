@@ -6,7 +6,7 @@ import pandas as pd
 
 
 class __Symbol:
-
+    # get root of category
     @classmethod
     def _get_root(cls, url):
         response = urllib.request.urlopen(url).read().decode('utf-8-sig')
@@ -23,20 +23,24 @@ class __Symbol:
             '15m': '%Y%m%d',
             '5m': '%Y%m%d',
         }
-        dates = set([datetime.strftime(date, date_format[freq]) for date in pd.date_range(date_from, date_to, freq='D')])
+        dates = set(
+            [datetime.strftime(date, date_format[freq]) for date in pd.date_range(date_from, date_to, freq='D')]
+        )
 
-        params = [dict(
-            ctg=category,
-            symbol=symbol,
-            freq=freq,
-            date=date
-        ) for date in dates]
-        urls = ['http://k-db.com/{ctg}/{symbol}/{freq}/{date}?download=csv'.format(**param) for param in params]
+        params = [dict(category=category, symbol=symbol, freq=freq, date=date) for date in dates]
+        urls = ['http://k-db.com/{category}/{symbol}/{freq}/{date}?download=csv'.format(**param) for param in params]
         df = pd.concat(
-            [pd.read_csv(urllib.request.urlopen(url), encoding='Shift_JIS') for url in urls]
+            [_fetch_csv(url) for url in urls]
         )
         return df
 
+    # download csv data.
+    @classmethod
+    def _fetch_csv(cls, url):
+        df = pd.read_csv(urllib.request.urlopen(url), encoding='Shift_JIS')
+        return df
+
+    # create index.
     @classmethod
     def _indexing(cls, df, columns):
         df.columns = columns
@@ -45,6 +49,7 @@ class __Symbol:
         df.sort_index(inplace=True)
         return df
 
+    # cut out of specified period
     @classmethod
     def _truncate(cls, df, freq, date_from, date_to):
         __sd = min(df[df.index >= date_from].index)
@@ -56,6 +61,7 @@ class __Symbol:
         return df
 
 
+# Parameter for futures
 class Futures(__Symbol):
     __category = 'futures'
 
@@ -92,6 +98,7 @@ class Futures(__Symbol):
         return df
 
 
+# Parameter for indices
 class Indices(__Symbol):
     __category = 'indices'
 
@@ -126,6 +133,7 @@ class Indices(__Symbol):
         return df
 
 
+# Parameter for stocks
 class Stocks(__Symbol):
     __category = 'stocks'
 
@@ -161,6 +169,7 @@ class Stocks(__Symbol):
         return df
 
 
+# Parameter for statistics
 class Statistics(__Symbol):
     __category = 'statistics'
 
