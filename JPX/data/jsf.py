@@ -12,16 +12,11 @@ def pcsl(date):
     :return:
     """
     result = __fetch(date, 'pcsl')
-
-    try:
-        result['貸借申込日'] = pd.to_datetime(result['貸借申込日'], format='%Y%m%d')
-        result['決済日'] = pd.to_datetime(result['決済日'], format='%Y%m%d')
-        result['当日品貸料率（円）'] = result['当日品貸料率（円）'].replace('*****', np.NaN)
-        result['当日品貸日数'] = result['当日品貸日数'].replace('*****', np.NaN)
-        result['前日品貸料率（円）'] = result['前日品貸料率（円）'].replace('*****', np.NaN)
-    except(KeyError):
-        result = pd.DataFrame()
-
+    result['貸借申込日'] = pd.to_datetime(result['貸借申込日'], format='%Y%m%d')
+    result['決済日'] = pd.to_datetime(result['決済日'], format='%Y%m%d')
+    result['当日品貸料率（円）'] = result['当日品貸料率（円）'].replace('*****', np.NaN)
+    result['当日品貸日数'] = result['当日品貸日数'].replace('*****', np.NaN)
+    result['前日品貸料率（円）'] = result['前日品貸料率（円）'].replace('*****', np.NaN)
     return result
 
 
@@ -43,8 +38,6 @@ def __fetch(date, target):
     )
     url = 'http://www.jsf.co.jp/de/stock/dlcsv.php?target={target}&date={date}'.format(**params)
     response = urllib.request.urlopen(url)
-    try:
-        df = pd.read_csv(response, encoding='Shift_JIS', skiprows=3)
-    except(pd.parser.CParserError):
-        df = pd.DataFrame()
+    df = pd.read_csv(response, encoding='Shift_JIS', skiprows=3)
     return df
+
