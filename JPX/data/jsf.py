@@ -14,7 +14,7 @@ def pcsl(date):
     result = __fetch(date, 'pcsl')
     result['貸借申込日'] = pd.to_datetime(result['貸借申込日'], format='%Y%m%d')
     result['決済日'] = pd.to_datetime(result['決済日'], format='%Y%m%d')
-    result['最高料率'] = result['最高料率'].replace('*****', np.NaN)
+    result['最高料率（円）'] = result['最高料率（円）'].replace('*****', np.NaN)
     result['当日品貸料率（円）'] = result['当日品貸料率（円）'].replace('*****', np.NaN)
     result['当日品貸日数'] = result['当日品貸日数'].replace('*****', np.NaN)
     result['前日品貸料率（円）'] = result['前日品貸料率（円）'].replace('*****', np.NaN)
